@@ -1,2 +1,2 @@
-# hyprengine
+# HyprpaperEngine
 wallpaper selector for hyprpaper 
