@@ -3,13 +3,7 @@
     "Ultimo_Indice": 0,
     "Opacidade": "100",
     "Tema_claro": false,
-    "ultimo_indice": 0,
-    "Wallpapers": [
-        "/home/michel/wallpaper/images.steamusercontent.jpg",
-        "/home/michel/V_wallpaper/vertical/vertical-monitor-zr2k1t6u1eyuw35y.jpg"
-    ],
-    "Monitores": [
-        "DP-2",
-        "HDMI-A-1"
-    ]
+    "Ultimo_monitor": "DP-2",
+    "Wallpapers": [],
+    "Monitores": []
 }

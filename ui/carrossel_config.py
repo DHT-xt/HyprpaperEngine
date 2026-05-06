@@ -19,8 +19,6 @@ class Path_carrossel(QWidget):
         self.current_index = 0
         self.init_ui()
     def init_ui(self):
-        self.setWindowTitle("PySide6 Image Carousel")
-        self.resize(800, 600)
 
         # Layout Principal
         self.main_layout = QVBoxLayout(self)

@@ -3,7 +3,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QPushButton,
                                QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
                                QWidget)
 from PySide6.QtCore import QSize, Qt
-from hypr_script import scrpt_hyprpaper
+from hypr_script import scrpt_hyprpaper, log
 import hypr_script
 
 class PopupSelecaoMonitor(QDialog):
@@ -90,8 +90,7 @@ class JanelaPrincipal(QMainWindow):
         self.botao.setFixedSize(120,40)
         layout.addWidget(self.botao, alignment=Qt.AlignmentFlag.AlignCenter)
         self.botao.clicked.connect(self.mostrar_popup)
-
-        self.label_resultado = QLabel("Nenhum monitor selecionado ainda.", self) 
+        self.label_resultado = QLabel("Nenhum monitor selecionado ainda.", self)
         self.label_resultado.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.label_resultado, alignment=Qt.AlignmentFlag.AlignCenter)
 
@@ -110,12 +109,16 @@ class JanelaPrincipal(QMainWindow):
         if popup.exec() == QDialog.DialogCode.Accepted:
             tela = popup.monitor_selecionado
             if tela:
-                self.label_resultado.setText(f"Você selecionou: {tela.name()} na posição X:{tela.geometry().x()}, Y:{tela.geometry().y()}")
+                self.label_resultado.setText(f"Você selecionou: {tela.name()}")
                 self.informar_monitor_selecionado(tela.name())
                 
     def informar_monitor_selecionado(self, monitor):
         scrpt_hyprpaper.monitor_selecionado = monitor
-        print("Monitor selecionado informado")
+
+    def ultimo_monitor_selecionado(self, ultimo_monitor):
+        self.label_resultado.setText(ultimo_monitor)
+        print(f"Informado no moni {ultimo_monitor}")
+        QApplication.processEvents()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

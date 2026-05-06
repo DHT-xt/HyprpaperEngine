@@ -13,6 +13,7 @@ class MngrConfigs:
                 "Ultimo_Indice": 0,
                 "Opacidade": "100",
                 "Tema_claro": "False",
+                "Ultimo_monitor": "",
                 "Wallpapers": [],
                 "Monitores": []
                 }
