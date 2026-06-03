@@ -6,8 +6,8 @@ from os.path import expanduser, isdir, isfile
 monitor_selecionado = ""
 wallpaper_selecionado = ""
 
-monitor_data = [""]
-wallpaper_data = [""]
+monitor_data = []
+wallpaper_data = []
 
 class hyprpaper():
     def __init__(self):
@@ -34,9 +34,39 @@ class hyprpaper():
             else:
                 print("monitor diferente")
         print(monitor_data, wallpaper_data)
+    
+    def monitor_check(self, monitores):
+        global monitor_data, wallpaper_data
+        wallpaper_ordem_errada = []
+        monitores_ordem_errada = []
+        
+        if len(monitor_data) > len(monitores):
+            #monitor_data = [item for item in monitor_data if item in monitores]
+            un_monitores = [
+                    (a1, a2)
+                    for a1, a2 in zip(monitor_data, wallpaper_data)
+                    if a1 in monitores
+                    ]
+            monitor_data = [x[0] for x in un_monitores]
+            wallpaper_data = [x[1] for x in un_monitores]
+            #monitor_data = monitores
 
+        if monitor_data:
+            for i, _ in enumerate(monitores):
+                if not monitor_data[i] == monitores[i]:
+                    monitores_ordem_errada.append(monitor_data[i])
+                    wallpaper_ordem_errada.append(wallpaper_data[i])
+                    monitor_data[i] = _
+        else:
+            monitor_data = monitores
+            wallpaper_data = [None]*len(monitor_data)
 
-
+        if monitores_ordem_errada:
+            for i, _ in enumerate(monitor_data):
+                for si, __ in enumerate(monitores_ordem_errada):
+                    if monitor_data[i] == monitores_ordem_errada[si]:
+                        wallpaper_data[i] = wallpaper_ordem_errada[si]
+    
     def check_hyprpaper(self):
         try: 
             subprocess.check_output(["pgrep", "hyprpaper"])
@@ -122,6 +152,8 @@ class conf():
         hyprpaper_path = os.path.expanduser("~/.config/hypr")
         arquivo = os.path.expanduser('~/.config/hypr/hyprpaper.conf')
         if not os.path.isdir(hyprpaper_path):
+            return
+        if not isfile(arquivo):
             return
         else:
             with open(arquivo, 'r') as f:

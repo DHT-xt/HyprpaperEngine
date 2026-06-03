@@ -1,3 +1,4 @@
+from os import name
 import sys, math
 from PySide6.QtWidgets import (QApplication, QMainWindow, QPushButton, 
                                QDialog, QVBoxLayout, QHBoxLayout, QLabel, 
@@ -83,6 +84,12 @@ class JanelaPrincipal(QMainWindow):
         self.setWindowTitle("Seleção Visual de Monitores")
         self.resize(600, 400)
         widget_central = QWidget(self)
+        monitores_nome = []
+        monitores = QApplication.screens()
+        for i, tela in enumerate(monitores):
+            monitores_nome.append(tela.name())
+        print(monitores_nome)
+        self.informar_monitor_selecionado(None, monitores_nome)
         self.setCentralWidget(widget_central)
         layout = QVBoxLayout(widget_central)
         layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -110,10 +117,14 @@ class JanelaPrincipal(QMainWindow):
             tela = popup.monitor_selecionado
             if tela:
                 self.label_resultado.setText(f"Você selecionou: {tela.name()}")
-                self.informar_monitor_selecionado(tela.name())
+                self.informar_monitor_selecionado(tela.name(), None)
                 
-    def informar_monitor_selecionado(self, monitor):
-        scrpt_hyprpaper.monitor_selecionado = monitor
+    def informar_monitor_selecionado(self, monitor, monitores_nome):
+        if monitor:
+            scrpt_hyprpaper.monitor_selecionado = monitor
+        if monitores_nome:
+            hyprpaper = scrpt_hyprpaper.hyprpaper()
+            hyprpaper.monitor_check(monitores_nome)
 
     def ultimo_monitor_selecionado(self, ultimo_monitor):
         self.label_resultado.setText(ultimo_monitor)
