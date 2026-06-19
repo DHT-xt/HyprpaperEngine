@@ -12,7 +12,7 @@ Utilizado Python e Shell Script
 O projeto tambem usa o Pyside6 do Qt framework  
 
 As configuracoes sao salvas no .json  
-Por padrao sera aberto no tema escuro  
+Por padrao sera aberto no tema claro 
 
 ## Funcionalidades
 

@@ -92,8 +92,7 @@ class conf():
             os.mkdir(self.hyprpaper_path)
         self.arquivo = os.path.expanduser('~/.config/hypr/hyprpaper.conf')
         hyprpaper_path = os.path.expanduser("~/HyprpaperEngine")
-        if not os.path.isdir(hyprpaper_path):
-            os.mkdir(hyprpaper_path)
+        if not os.path.isdir(f'{hyprpaper_path}/backup'):
             os.mkdir(f'{hyprpaper_path}/backup')
         arquivo2 = os.path.expanduser('~/.config/hypr/hyprpaper.conf')
         texto_procurado = '# HYPRENGINE Version: 1.0'

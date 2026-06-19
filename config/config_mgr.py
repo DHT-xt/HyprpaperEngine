@@ -11,7 +11,9 @@ class MngrConfigs:
     def __init__(self, arquivo="~/HyprpaperEngine/config/config.json"):
         self.arquivo = os.path.expanduser(arquivo)
         arquivo_path = os.path.expanduser("~/HyprpaperEngine/config")
+        hyprpaperEngine_path = os.path.expanduser("~/HyprpaperEngine/")
         if not os.path.isdir(arquivo_path):
+            os.mkdir(hyprpaperEngine_path)
             os.mkdir(arquivo_path)
         self.dados = {
                 "ultima_pasta": "",
