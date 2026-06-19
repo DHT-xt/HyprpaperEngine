@@ -30,10 +30,6 @@ class hyprpaper():
         for i in range(len(monitor_data)):
             if monitor_data[i] == monitor_selecionado:
                 wallpaper_data[i] = wallpaper_selecionado
-                print("alterado os dados")
-            else:
-                print("monitor diferente")
-        print(monitor_data, wallpaper_data)
     
     def monitor_check(self, monitores):
         global monitor_data, wallpaper_data
@@ -78,9 +74,9 @@ class hyprpaper():
         try:
             subprocess.Popen(
                 ["hyprpaper"],
-                stdout=subprocess.DEVNULL,  # Descarta as mensagens de log (limpa o terminal)
-                stderr=subprocess.DEVNULL,  # Descarta erros (limpa o terminal)
-                start_new_session=True      # Garante que ele sobreviva ao fechar o Python
+                stdout=subprocess.DEVNULL,  
+                stderr=subprocess.DEVNULL,  
+                start_new_session=True      
             )
         except Exception as e: 
             self.informar_erro.erro_msg(e)

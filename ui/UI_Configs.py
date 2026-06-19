@@ -11,7 +11,6 @@ class SwitchButton(QCheckBox):
         self.setFixedSize(60, 28)
         self.setCursor(Qt.PointingHandCursor)
         
-        # Posição da bolinha (0 = esquerda, 40 = direita)
         self._circle_position = 3
         self.animation = QPropertyAnimation(self, b"circle_position")
         self.animation.setDuration(1200)
@@ -31,7 +30,6 @@ class SwitchButton(QCheckBox):
 
     def nextCheckState(self):
         super().nextCheckState()
-        # Inicia a animação dependendo do estado
         start = 3 if not self.isChecked() else 34
         end = 34 if self.isChecked() else 3
         self.animation.setStartValue(start)
@@ -43,14 +41,11 @@ class SwitchButton(QCheckBox):
         p.setRenderHint(QPainter.Antialiasing)
         p.setPen(Qt.NoPen)
         
-        # Cor de fundo baseada no estado
         bg_color = QColor("#c5dbff") if self.isChecked() else QColor("#6f6f6f")
         
-        # Desenha o corpo do switch (retângulo arredondado)
         p.setBrush(bg_color)
         p.drawRoundedRect(0, 0, self.width(), self.height(), self.height() / 2, self.height() / 2)
         
-        # Desenha a bolinha
         if self.isChecked():
             p.setBrush(QColor("#ffffff"))
 
@@ -61,7 +56,6 @@ class SwitchButton(QCheckBox):
         p.drawEllipse(int(self._circle_position), 3, 22, 22)
         p.end()
 
-# --- Exemplo de Uso ---
 class Buttongr(QWidget):
     def __init__(self, Outrajanela, Tema_claro= False):
         super().__init__()
@@ -135,7 +129,5 @@ def cor_fundo(janela_alvo, button_check=False):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = Buttongr()
-    #w.setAttribute(Qt.WA_TranslucentBackground)
-    #w.setWindowFlags(Qt.FramelessWindowHint)
     w.show()
     sys.exit(app.exec())

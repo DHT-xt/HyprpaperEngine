@@ -5,16 +5,15 @@ from PySide6.QtWidgets import (QApplication, QGraphicsView, QGraphicsScene,
 from PySide6.QtCore import Qt, QPointF, QPropertyAnimation, QEasingCurve, QRect, Signal
 from PySide6.QtGui import QWheelEvent, QPainter, QPixmap, QPainterPath
 
-# Importe o seu script (comentei caso precise testar sem ele)
 try:
     from hypr_script import scrpt_hyprpaper
 except ImportError:
-    print("Aviso: Módulo hypr_script não encontrado. O clique não alterará o wallpaper real.")
+    print("Error: No module named scrpt_hyprpaper")
     scrpt_hyprpaper = None
 
 
 # ==========================================
-# CLASSE 1: O CARD DA IMAGEM
+# CLASSE 1: IMG CARD
 # ==========================================
 class ImageCard(QFrame):
     clicked = Signal(str)
@@ -84,7 +83,7 @@ class ImageCard(QFrame):
 
 
 # ==========================================
-# CLASSE 2: O CARROSSEL (Área Central)
+# CLASSE 2: GALLERY (Central)
 # ==========================================
 class HorizontalHoverCarousel(QGraphicsView):
     def __init__(self, folder_path):
@@ -231,20 +230,20 @@ class HorizontalHoverCarousel(QGraphicsView):
 
 
 # ==========================================
-# EXECUÇÃO DO APLICATIVO
+# SOLO APP EXEC (TEST ONLY)
 # ==========================================
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     
-    PASTA_DE_IMAGENS = "/home/michel/wallpaper/" 
+    IMG_FOLDER_PATH = "" 
     
-    if not os.path.exists(PASTA_DE_IMAGENS):
-        os.makedirs(PASTA_DE_IMAGENS)
-        print(f"Criei uma pasta vazia em {os.path.abspath(PASTA_DE_IMAGENS)}")
-        print("Coloque algumas imagens lá para testar!")
+    if not os.path.exists(IMG_FOLDER_PATH):
+        os.makedirs(IMG_FOLDER_PATH)
+        print(f"Created empty folder in {os.path.abspath(IMG_FOLDER_PATH)}")
+        print("Shove some imgs there!")
     
-    view = HorizontalHoverCarousel(PASTA_DE_IMAGENS)
+    view = HorizontalHoverCarousel(IMG_FOLDER_PATH)
     view.resize(1000, 500)
-    view.setWindowTitle("Galeria de Imagens Dinâmica")
+    view.setWindowTitle("Image-gallery-test")
     view.show()
     sys.exit(app.exec())

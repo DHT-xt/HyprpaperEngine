@@ -88,7 +88,6 @@ class JanelaPrincipal(QMainWindow):
         monitores = QApplication.screens()
         for i, tela in enumerate(monitores):
             monitores_nome.append(tela.name())
-        print(monitores_nome)
         self.informar_monitor_selecionado(None, monitores_nome)
         self.setCentralWidget(widget_central)
         layout = QVBoxLayout(widget_central)
@@ -128,7 +127,6 @@ class JanelaPrincipal(QMainWindow):
 
     def ultimo_monitor_selecionado(self, ultimo_monitor):
         self.label_resultado.setText(ultimo_monitor)
-        print(f"Informado no moni {ultimo_monitor}")
         QApplication.processEvents()
 
 if __name__ == "__main__":

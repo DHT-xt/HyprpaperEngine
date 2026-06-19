@@ -6,26 +6,26 @@ class info_log(QMainWindow):
         self.setWindowTitle("Hyprpaper Engine")
         self.resize(300, 200)
 
-    # 🔴 Para ERROS GRAVES 
+    # 🔴 
     def erro_msg(self, mensagem):
         QMessageBox.critical(
             self, 
-            "Error", # Título da Janela
-            f"Critical error:\n\n{mensagem}" # Corpo do texto
+            "Error", #Title
+            f"Critical error:\n\n{mensagem}" #msg
         )
 
-    # 🟡 Para AVISOS 
+    # 🟡
     def aviso(self, mensagem):
         QMessageBox.warning(
             self, 
-            "Atenção", 
+            "warning", 
             mensagem
         )
 
-    # 🔵 Para INFORMAÇÕES 
+    # 🔵
     def sucesso(self, mensagem):
         QMessageBox.information(
             self, 
-            "Concluído", 
+            "Sucess", 
             mensagem
         )

@@ -33,20 +33,13 @@ class MainWindow(QMainWindow):
         self.imgcarrossel = Path_carrossel()
         self.selct_monitor = JanelaPrincipal()
         self.monitor_selected = PopupSelecaoMonitor()
-        #self.testimg = HorizontalHoverCarousel("/home/michel/wallpaper/" )
         self.config_salva = MngrConfigs() 
-        self.config_ui = Buttongr(self, self.config_salva.dados["Tema_claro"])
-        #self.transparencia_config = configurar_transparencia(self) 
+        self.config_ui = Buttongr(self, self.config_salva.dados["Tema_claro"]) 
         if self.config_salva.dados["ultima_pasta"]:
             self.imgcarrossel.load_images_from_folder(self.config_salva.dados["ultima_pasta"])
         if self.config_salva.dados["Ultimo_monitor"]:
             self.selct_monitor.ultimo_monitor_selecionado(self.config_salva.dados["Ultimo_monitor"])
             scrpt_hyprpaper.monitor_selecionado = self.config_salva.dados["Ultimo_monitor"]
-        #elif self.hypr_script.check_init():
-            #monitores, wallpapers = self.hypr_script.check_init()
-            #self.config_salva.dados["Wallpapers"] = wallpapers
-            #self.config_salva.dados["Monitores"] = monitores
-            #print("monitores e wallpapers salvos no json")
         self.setWindowTitle("Hyprpaper Engine")
         self.text = QLabel("Local dos wallpapers", self)       
         widget = QWidget()
