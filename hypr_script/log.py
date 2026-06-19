@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox, QPushButton
 
 class info_log(QMainWindow):
     def __init__(self):

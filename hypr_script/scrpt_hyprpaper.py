@@ -91,6 +91,10 @@ class conf():
         if not os.path.isdir(self.hyprpaper_path):
             os.mkdir(self.hyprpaper_path)
         self.arquivo = os.path.expanduser('~/.config/hypr/hyprpaper.conf')
+        hyprpaper_path = os.path.expanduser("~/HyprpaperEngine")
+        if not os.path.isdir(hyprpaper_path):
+            os.mkdir(hyprpaper_path)
+            os.mkdir(f'{hyprpaper_path}/backup')
         arquivo2 = os.path.expanduser('~/.config/hypr/hyprpaper.conf')
         texto_procurado = '# HYPRENGINE Version: 1.0'
         if not isfile(self.arquivo):
@@ -110,11 +114,10 @@ class conf():
         if isdir(self.bckp_path):
 
             arquivo_bckp = "hyprpaper_bckup.conf"
-            path_arquivo_bckp = os.path.expanduser("~/HyprpaperEngine/hyprpaper_bckup.conf")
+            path_arquivo_bckp = os.path.expanduser("~/.config/hypr/hyprpaper_bckup.conf")
 
-            os.rename(self.arquivo, arquivo_bckp)
+            os.rename(self.arquivo, path_arquivo_bckp)
             os.replace(os.path.expanduser(path_arquivo_bckp), f'{self.bckp_path}/{arquivo_bckp}')
-
             self.criar()
         else:
             os.mkdir(self.bckp_path)

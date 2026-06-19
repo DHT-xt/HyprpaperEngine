@@ -3,11 +3,16 @@
 import os
 import json
 
+from os.path import expanduser, isdir 
+
 ####
 
 class MngrConfigs:
-    def __init__(self, arquivo="config/config.json"):
-        self.arquivo = arquivo
+    def __init__(self, arquivo="~/HyprpaperEngine/config/config.json"):
+        self.arquivo = os.path.expanduser(arquivo)
+        arquivo_path = os.path.expanduser("~/HyprpaperEngine/config")
+        if not os.path.isdir(arquivo_path):
+            os.mkdir(arquivo_path)
         self.dados = {
                 "ultima_pasta": "",
                 "Ultimo_Indice": 0,
