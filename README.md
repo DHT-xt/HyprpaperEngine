@@ -33,8 +33,8 @@ Para quem quiser desenvolver o projeto será preciso o Qt instalado
 
 ## Instalação
 
-1. Baixe o executavel nas realeses 
-    * [Realeses](https://github.com/DHT-xt/HyprpaperEngine/releases)
+1. Baixe o executavel nas releases 
+    * [Releases](https://github.com/DHT-xt/HyprpaperEngine/release)
 
 2. Execute o arquivo "HyprpaperEngine", mas se a caso nao abra use na pasta que salvou o executavel:
     ```bash
@@ -45,7 +45,7 @@ Ou caso preferir clonar o repositório
 
 1. Clone este repositório:
    ```bash
-   git clone [https://github.com/DHT-xt/HyprpaperEngine](https://github.com/DHT-xt/HyprpaperEngine.git)
+   git clone https://github.com/DHT-xt/HyprpaperEngine.git
    cd HyprpaperEngine
 
 para executar
