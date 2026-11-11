@@ -115,7 +115,7 @@ class HorizontalHoverCarousel(QGraphicsView):
         self.animations.clear()  
         self.scroll_x = 0        
         
-        valid_extensions = ('.png', '.jpg', '.jpeg', '.webp', '.bmp')
+        valid_extensions = ('.png', '.jpg', '.jpeg', '.webp', '.bmp', '.mp4', '.gif')
         
         if not os.path.exists(folder_path):
             print(f"Aviso: Pasta '{folder_path}' não encontrada.")

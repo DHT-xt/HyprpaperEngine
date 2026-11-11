@@ -23,6 +23,7 @@ class hyprpaper():
         else:
             comando_wallpaper = f"{monitor},{wallpaper}"
             subprocess.run(["hyprctl", "hyprpaper", "wallpaper", comando_wallpaper])
+            subprocess.run(["wal", "-i", wallpaper])
             self.data_conf(monitor, wallpaper)
 
     def data_conf(self, monitor_selecionado, wallpaper_selecionado):
