@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 from PySide6.QtWidgets import (QApplication, QGraphicsView, QGraphicsScene, 
                                QFrame, QLabel, QVBoxLayout)
 from PySide6.QtCore import Qt, QPointF, QPropertyAnimation, QEasingCurve, QRect, Signal
@@ -107,6 +108,26 @@ class HorizontalHoverCarousel(QGraphicsView):
         self.scroll_x = 0
         
         self.load_images_from_directory(folder_path)
+    
+    def video_thumb_capture(self, video, file_path):
+
+        video_path = os.path.join(file_path, video)
+
+        filename = os.path.splitext(video)[0]
+
+        output_path = os.path.join(file_path, f"{filename}[THUMB].png")
+        
+        if os.path.exists(output_path):
+            return
+
+        subprocess.run([
+            "ffmpeg",
+            "-hwaccel", "none",
+            "-i", video_path,
+            "-frames:v", "1",
+            "-y",
+            output_path
+        ], check=True)
 
     def load_images_from_directory(self, folder_path):
         # Limpa a cena antes de carregar novas imagens (Resolve o bug de múltiplas pastas)
@@ -115,13 +136,16 @@ class HorizontalHoverCarousel(QGraphicsView):
         self.animations.clear()  
         self.scroll_x = 0        
         
-        valid_extensions = ('.png', '.jpg', '.jpeg', '.webp', '.bmp', '.mp4', '.gif')
+        valid_extensions = ('.png', '.jpg', '.jpeg', '.webp', '.bmp')
         
         if not os.path.exists(folder_path):
             print(f"Aviso: Pasta '{folder_path}' não encontrada.")
             return
 
         for filename in os.listdir(folder_path):
+            if filename.lower().endswith('.mp4'):
+                self.video_thumb_capture(filename, folder_path)
+
             if filename.lower().endswith(valid_extensions):
                 full_path = os.path.join(folder_path, filename)         
                 
@@ -139,7 +163,12 @@ class HorizontalHoverCarousel(QGraphicsView):
             self.update_layout(animated=False)
 
     def on_card_clicked(self, image_path):
-        print(f"\n---> IMAGEM SELECIONADA: {image_path}")
+        
+        if "[THUMB]" in os.path.basename(image_path):
+            video_path = image_path.replace("[THUMB]", "")
+            video_path = os.path.splitext(video_path)[0] + ".mp4"
+            if os.path.isfile(video_path):
+                image_path = video_path
         if scrpt_hyprpaper:
             alterar_wallpaper = scrpt_hyprpaper.hyprpaper()
             scrpt_hyprpaper.wallpaper_selecionado = image_path

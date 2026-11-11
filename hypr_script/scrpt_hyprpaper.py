@@ -13,17 +13,59 @@ class hyprpaper():
     def __init__(self):
         self.informar_erro = info_log()
         pass
-    
+
+    def get_mpvpaper_pids(self, monitor, ignore_last):
+        result = subprocess.run(
+            ["pgrep", "-af", "mpvpaper"],
+            capture_output=True,
+            text=True
+        )
+
+        pids = []
+
+        for line in result.stdout.splitlines():
+            if monitor in line:
+                pid = int(line.split()[0])
+                pids.append(pid)
+
+        if ignore_last:
+            pids.sort(
+                key=lambda pid: subprocess.check_output(
+                    ["ps", "-o", "lstart=", "-p", str(pid)],
+                    text=True
+                )
+            )
+            return pids[:-1]
+
+        return pids
+
+    def check_kill_mpvpaper(self, monitor, ignore_last):
+        if self.get_mpvpaper_pids(monitor, ignore_last):
+            for pid in self.get_mpvpaper_pids(monitor, ignore_last):
+                subprocess.run(["kill", str(pid)])
+
+
     def alt_wallpaper(self):
         global monitor_selecionado, wallpaper_selecionado
         wallpaper = wallpaper_selecionado
         monitor = monitor_selecionado
         if not monitor:
             self.informar_erro.aviso("Monitor nao selecionado")
+
+        elif wallpaper.lower().endswith('.mp4'):
+            subprocess.Popen(["mpvpaper", "-o", "no-audio --loop", monitor, wallpaper,],
+                             stdout=subprocess.DEVNULL, 
+                             stderr=subprocess.DEVNULL,
+                             stdin=subprocess.DEVNULL,
+                             start_new_session=True)
+            subprocess.run(["wal", "-i", wallpaper])
+            self.check_kill_mpvpaper(monitor, True)
+        
         else:
             comando_wallpaper = f"{monitor},{wallpaper}"
             subprocess.run(["hyprctl", "hyprpaper", "wallpaper", comando_wallpaper])
             subprocess.run(["wal", "-i", wallpaper])
+            self.check_kill_mpvpaper(monitor, False)
             self.data_conf(monitor, wallpaper)
 
     def data_conf(self, monitor_selecionado, wallpaper_selecionado):
